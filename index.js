@@ -5,10 +5,10 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 
 app.post('/login', function (req, res) {    
-    console.log("cheking user and password " + new Date().toJSON())
+    console.log("cheking username and password " + new Date().toJSON())
     
     var login = req.body
-    if (login.user == "admin" && login.password == "admin" ) {
+    if (login.username == "admin" && login.password == "admin" ) {
         res.send()
     } 
     else {
@@ -18,7 +18,7 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/login', function (req, res) {
-    res.send("send a POST to /login with a body { \"user\": \"admin\", \"password\" : \"admin\" } ")
+    res.send("send a POST to /login with a body { \"username\": \"admin\", \"password\" : \"admin\" } ")
 });
 
 app.listen(app.get('port'), function() {
