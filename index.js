@@ -4,7 +4,7 @@ var jwt    = require("jsonwebtoken")
 var app = express()
 app.use(bodyParser.json())
 app.set("port", (process.env.PORT || 5000))
-app.set("superSecret", "oauthServerLogin");
+app.set("superSecret", "oauthServerLogin")
 
 app.post("/login", function (req, res) {    
     console.log("cheking username and password " + new Date().toJSON())
@@ -38,7 +38,7 @@ app.get("/login", function (req, res) {
 
 app.get("/user", function (req, res) {
     // check header or url parameters or post parameters for token
-    var token = req.body.token || req.query.token || req.headers["x-access-token"];
+    var token = req.body.token || req.query.token || req.headers["x-access-token"]
   
     // decode token
     if (token) {
@@ -46,13 +46,16 @@ app.get("/user", function (req, res) {
       // verifies secret and checks exp
       jwt.verify(token, app.get("superSecret"), function(err, decoded) {      
         if (err) {
-          return res.json({ success: false, message: "Failed to authenticate token." });    
+            return res.status(403).send({ 
+                success: false, 
+                message: "Failed to authenticate token." 
+            })             
         } else {
           // if everything is good, save to request for use in other routes
-          req.decoded = decoded;    
-          next();
+          req.decoded = decoded    
+          next()
         }
-      });
+      })
   
     } else {
   
@@ -61,11 +64,11 @@ app.get("/user", function (req, res) {
       return res.status(403).send({ 
           success: false, 
           message: "No token provided." 
-      });
+      })
   
     }
 })
 
 app.listen(app.get("port"), function() {
-    console.log("Node app is running on port", app.get("port"));
+    console.log("Node app is running on port", app.get("port"))
 })
