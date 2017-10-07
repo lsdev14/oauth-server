@@ -1,0 +1,8 @@
+version: '2'
+services:
+  oauth-server:
+    build: .
+    volumes:
+      - C:\Users\Leandro\zupit\oauth-server:/home/application
+    ports:
+      - "5000:5000"
