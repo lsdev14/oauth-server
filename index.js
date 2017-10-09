@@ -50,10 +50,11 @@ app.get("/user", function (req, res) {
                 success: false, 
                 message: "Failed to authenticate token." 
             })             
-        } else {
-          // if everything is good, save to request for use in other routes
-          req.decoded = decoded    
-          next()
+        } else {             
+            res.json({
+                success: true,
+                message: "the token is valid"
+            })
         }
       })
   
